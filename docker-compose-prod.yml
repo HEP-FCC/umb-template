@@ -1,0 +1,39 @@
+services:
+    backend:
+        build:
+            context: ./backend
+            dockerfile: Dockerfile
+        volumes:
+            - backend-storage:/app/storage # Mount persistent storage for file watcher state
+            - app-locks:/app/locks # Mount shared volume for worker coordination
+        ports:
+            - "8000:8000"
+        command: fastapi dev app/main.py --host 0.0.0.0 --port 8000
+        restart: unless-stopped
+        networks:
+            - app-network
+
+    frontend:
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        ports:
+            - "3000:3000"
+        command: sh -c "yarn dev"
+        environment:
+            - HOST=0.0.0.0
+        restart: unless-stopped
+        networks:
+            - app-network
+        depends_on:
+            - backend
+
+networks:
+    app-network:
+        driver: bridge
+
+volumes:
+    backend-storage:
+        driver: local
+    app-locks:
+        driver: local

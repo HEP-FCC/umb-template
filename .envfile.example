@@ -1,0 +1,36 @@
+METADATA_BROWSER_FRONTEND_HOST="0.0.0.0"
+METADATA_BROWSER_FRONTEND_URL="http://localhost:3000"
+METADATA_BROWSER_BACKEND_URL="http://localhost:8000"
+
+# The PostgreSQL host will be replaced in the dev docker container with
+# internal postgres address
+METADATA_BROWSER_POSTGRES_HOST="localhost"
+METADATA_BROWSER_POSTGRES_PORT=5432
+METADATA_BROWSER_POSTGRES_USER="admin"
+METADATA_BROWSER_POSTGRES_PASSWORD="admin"
+METADATA_BROWSER_POSTGRES_DB="universal_metadata_browser"
+
+METADATA_BROWSER_LOG_LEVEL="DEBUG"
+METADATA_BROWSER_HTTPS_ONLY="false"
+
+# Authentication configuration
+# Set to "true" to enable CERN SSO authentication
+METADATA_BROWSER_AUTH_ENABLED="false"
+METADATA_BROWSER_CERN_REDIRECT_URI="http://localhost:8000/auth"
+METADATA_BROWSER_REQUIRED_CERN_ROLE="metadata-browser-user"
+METADATA_BROWSER_COOKIE_PREFIX="universal-metadata-browser"
+
+# Required for session management and authentication (if enabled)
+METADATA_BROWSER_APPLICATION_SECRET_KEY="your-very-secure-secret-key-change-this"
+
+# CERN OAuth credentials (only needed if AUTH_ENABLED=true)
+# METADATA_BROWSER_CERN_CLIENT_ID="your-cern-client-id"
+# METADATA_BROWSER_CERN_CLIENT_SECRET="your-cern-client-secret"
+# METADATA_BROWSER_AUTH_OIDC_URL="https://auth.cern.ch/auth/realms/cern/.well-known/openid_configuration"
+# METADATA_BROWSER_AUTH_ISSUER="https://auth.cern.ch/auth/realms/cern"
+
+METADATA_BROWSER_STARTUP_MODE="process_new"
+METADATA_BROWSER_STATE_FILE="/app/locks/file_watcher_state.json"
+METADATA_BROWSER_FILE_WATCHER_LOCK_FILE="/app/locks/file_watcher.lock"
+METADATA_BROWSER_FILE_WATCHER_PATHS="/data"
+METADATA_BROWSER_FILE_WATCHER_EXTENSIONS=".json"

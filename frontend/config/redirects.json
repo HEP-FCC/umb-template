@@ -1,0 +1,5 @@
+{
+    "redirects": {
+        "/some/hardcoded/path.php": "/new/path/if/needed"
+    }
+}

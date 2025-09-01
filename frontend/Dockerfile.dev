@@ -1,0 +1,22 @@
+FROM node:22-alpine3.22
+
+WORKDIR /app
+
+# Install yarn if not already included in the image
+RUN apk add --no-cache yarn
+
+# Copy package.json and yarn.lock
+COPY package.json yarn.lock* ./
+
+# Install dependencies
+RUN yarn install
+
+# Expose port for Nuxt dev server
+EXPOSE 3000
+
+# Set host to allow external connections
+ENV HOST=localhost
+ENV PORT=3000
+
+# Command to run the development server with hot reloading
+CMD ["yarn", "dev"]

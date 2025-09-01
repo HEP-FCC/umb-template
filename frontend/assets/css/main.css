@@ -1,0 +1,308 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+@import "./colors.css";
+@import "./components.css";
+
+/* Force light mode - disable all dark mode behavior */
+* {
+    color-scheme: light !important;
+}
+
+html,
+body {
+    color-scheme: light !important;
+}
+
+/* Prevent any dark mode classes from applying */
+.dark,
+[data-theme="dark"] {
+    color-scheme: light !important;
+}
+
+/* Override any dark mode media queries */
+@media (prefers-color-scheme: dark) {
+    * {
+        color-scheme: light !important;
+    }
+}
+
+/* Define custom colors for Nuxt UI integration - pulling from your existing color system */
+@theme {
+    /* ECO Palette - referencing your existing color definitions from colors.css */
+    --color-eco-50: #f2f2e6;
+    --color-eco-100: #e3e8cc;
+    --color-eco-200: #d6dcb3;
+    --color-eco-300: #c9ce99;
+    --color-eco-400: #bbc280;
+    --color-eco-500: #aeb766;
+    --color-eco-600: #a0aa4d;
+    --color-eco-700: #919e34;
+    --color-eco-800: #849419;
+    --color-eco-900: #778701;
+
+    /* EARTH Palette */
+    --color-earth-50: #f5f2f0;
+    --color-earth-100: #ebe6e3;
+    --color-earth-200: #e0d9d4;
+    --color-earth-300: #d6ccc4;
+    --color-earth-400: #cec0b5;
+    --color-earth-500: #c4b5a8;
+    --color-earth-600: #baa999;
+    --color-earth-700: #b09b8a;
+    --color-earth-800: #a68f7b;
+    --color-earth-900: #9b826e;
+
+    /* RADIANT BLUE Palette */
+    --color-radiant-blue-50: #e6e5ff;
+    --color-radiant-blue-100: #ccccff;
+    --color-radiant-blue-200: #b2b3ff;
+    --color-radiant-blue-300: #9999ff;
+    --color-radiant-blue-400: #7f7fff;
+    --color-radiant-blue-500: #6666ff;
+    --color-radiant-blue-600: #4c4cff;
+    --color-radiant-blue-700: #3333ff;
+    --color-radiant-blue-800: #1919ff;
+    --color-radiant-blue-900: #0700ff;
+
+    /* SPACE Palette */
+    --color-space-50: #f6fcff;
+    --color-space-100: #f0f9fc;
+    --color-space-200: #e7f7fc;
+    --color-space-300: #e1f4f9;
+    --color-space-400: #d9f1f8;
+    --color-space-500: #d3eef6;
+    --color-space-600: #caebf5;
+    --color-space-700: #c4e8f2;
+    --color-space-800: #bce6f2;
+    --color-space-900: #b6e3ef;
+
+    /* FLASH Palette */
+    --color-flash-50: #fcffdb;
+    --color-flash-100: #fcffdb;
+    --color-flash-200: #f9fecb;
+    --color-flash-300: #f6febb;
+    --color-flash-400: #f3feaa;
+    --color-flash-500: #f3fe9b;
+    --color-flash-600: #f0fb8c;
+    --color-flash-700: #edfb7c;
+    --color-flash-800: #edfb6f;
+    --color-flash-900: #eafb61;
+
+    /* ENERGY Palette */
+    --color-energy-50: #f3e8fe;
+    --color-energy-100: #e5d4fd;
+    --color-energy-200: #dabdfc;
+    --color-energy-300: #ceaafc;
+    --color-energy-400: #c094fb;
+    --color-energy-500: #b580fa;
+    --color-energy-600: #aa6efa;
+    --color-energy-700: #9c5bf9;
+    --color-energy-800: #924bf9;
+    --color-energy-900: #843af9;
+
+    /* DEEP BLUE Palette */
+    --color-deep-blue-50: #e8e8ed;
+    --color-deep-blue-100: #cfcedc;
+    --color-deep-blue-200: #b8b8c9;
+    --color-deep-blue-300: #9fa1b8;
+    --color-deep-blue-400: #878aa5;
+    --color-deep-blue-500: #707194;
+    --color-deep-blue-600: #565a82;
+    --color-deep-blue-700: #404270;
+    --color-deep-blue-800: #26285c;
+    --color-deep-blue-900: #10124a;
+
+    /* Status Colors - Custom semantic colors for status badges using kebab-case */
+    /* "done", "stopped" - green success colors */
+    --color-status-completed-50: #e5fae1; /* Light background for values */
+    --color-status-completed-100: #d4f5cd;
+    --color-status-completed-200: #c3f0b9;
+    --color-status-completed-300: #b2eba5;
+    --color-status-completed-400: #a1e691;
+    --color-status-completed-500: #9ee793; /* Header/border color */
+    --color-status-completed-600: #8ed783;
+    --color-status-completed-700: #7ec773;
+    --color-status-completed-800: #6eb763;
+    --color-status-completed-900: #5ea753;
+
+    /* "moved-to-tape" - yellow warning colors */
+    --color-status-in-progress-50: #faf8e3; /* Light background for values */
+    --color-status-in-progress-100: #f5f1d6;
+    --color-status-in-progress-200: #f0eac9;
+    --color-status-in-progress-300: #ebe3bc;
+    --color-status-in-progress-400: #e6dcaf;
+    --color-status-in-progress-500: #e9e19a; /* Header/border color */
+    --color-status-in-progress-600: #ddd28a;
+    --color-status-in-progress-700: #d1c37a;
+    --color-status-in-progress-800: #c5b46a;
+    --color-status-in-progress-900: #b9a55a;
+
+    /* "error", "not-registered" - red error colors */
+    --color-status-failed-50: #ffe5e2; /* Light background for values */
+    --color-status-failed-100: #ffd5d0;
+    --color-status-failed-200: #ffc5be;
+    --color-status-failed-300: #ffb5ac;
+    --color-status-failed-400: #ffa59a;
+    --color-status-failed-500: #fa9e96; /* Header/border color */
+    --color-status-failed-600: #ea8e86;
+    --color-status-failed-700: #da7e76;
+    --color-status-failed-800: #ca6e66;
+    --color-status-failed-900: #ba5e56;
+
+    /* "active" - blue active colors */
+    --color-status-active-50: #e0f5ff; /* Light background for values */
+    --color-status-active-100: #d0f0ff;
+    --color-status-active-200: #c0ebff;
+    --color-status-active-300: #b0e6ff;
+    --color-status-active-400: #a0e1ff;
+    --color-status-active-500: #70dcf9; /* Header/border color */
+    --color-status-active-600: #60d2f4;
+    --color-status-active-700: #50c8ef;
+    --color-status-active-800: #40beea;
+    --color-status-active-900: #30b4e5;
+
+    /* "not-registered" and other neutral states - gray colors */
+    --color-status-neutral-50: #e8e8e8; /* Light background for values */
+    --color-status-neutral-100: #dedede;
+    --color-status-neutral-200: #d4d4d4;
+    --color-status-neutral-300: #cacaca;
+    --color-status-neutral-400: #c0c0c0;
+    --color-status-neutral-500: #a7a7a7; /* Header/border color */
+    --color-status-neutral-600: #979797;
+    --color-status-neutral-700: #878787;
+    --color-status-neutral-800: #777777;
+    --color-status-neutral-900: #676767;
+}
+
+/* Custom Font Declarations for Local Fonts */
+@font-face {
+    font-family: "Roobert";
+    src: url("/fonts/roobert-400.woff2") format("woff2"), url("/fonts/roobert-400.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Roobert";
+    src: url("/fonts/roobert-300.otf") format("opentype");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Roobert";
+    src: url("/fonts/roobert-500.ttf") format("truetype"), url("/fonts/roobert-500.otf") format("opentype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Space Mono";
+    src: url("/fonts/space-mono-400.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@layer theme {
+    :root,
+    :host {
+        --font-sans: "Roobert", "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+            "Segoe UI Symbol", "Noto Color Emoji";
+        --font-mono: "Space Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+            "Courier New", monospace;
+    }
+}
+
+:root {
+    /* Nuxt UI Integration - Map our colors to Nuxt UI defaults */
+    --ui-primary: var(--color-primary);
+    --ui-secondary: var(--color-secondary);
+    --ui-success: var(--color-success);
+    --ui-info: var(--color-info);
+    --ui-warning: var(--color-warning);
+    --ui-error: var(--color-error);
+
+    /* Custom color mappings for Nuxt UI - these make your colors available as :color props */
+    --ui-eco: var(--color-eco-900);
+    --ui-earth: var(--color-earth-900);
+    --ui-radiant-blue: var(--color-radiant-blue-900);
+    --ui-space: var(--color-space-900);
+    --ui-flash: var(--color-flash-900);
+    --ui-energy: var(--color-energy-900);
+    --ui-deep-blue: var(--color-deep-blue-900);
+
+    /* Status color mappings - required for NuxtUI to recognize them */
+    --ui-status-completed: var(--color-status-completed-500);
+    --ui-status-in-progress: var(--color-status-in-progress-500);
+    --ui-status-failed: var(--color-status-failed-500);
+    --ui-status-active: var(--color-status-active-500);
+    --ui-status-neutral: var(--color-status-neutral-500);
+
+    /* Generate the full color palettes for NuxtUI */
+    --ui-color-status-completed-50: var(--color-status-completed-50);
+    --ui-color-status-completed-100: var(--color-status-completed-100);
+    --ui-color-status-completed-200: var(--color-status-completed-200);
+    --ui-color-status-completed-300: var(--color-status-completed-300);
+    --ui-color-status-completed-400: var(--color-status-completed-400);
+    --ui-color-status-completed-500: var(--color-status-completed-500);
+    --ui-color-status-completed-600: var(--color-status-completed-600);
+    --ui-color-status-completed-700: var(--color-status-completed-700);
+    --ui-color-status-completed-800: var(--color-status-completed-800);
+    --ui-color-status-completed-900: var(--color-status-completed-900);
+
+    --ui-color-status-in-progress-50: var(--color-status-in-progress-50);
+    --ui-color-status-in-progress-100: var(--color-status-in-progress-100);
+    --ui-color-status-in-progress-200: var(--color-status-in-progress-200);
+    --ui-color-status-in-progress-300: var(--color-status-in-progress-300);
+    --ui-color-status-in-progress-400: var(--color-status-in-progress-400);
+    --ui-color-status-in-progress-500: var(--color-status-in-progress-500);
+    --ui-color-status-in-progress-600: var(--color-status-in-progress-600);
+    --ui-color-status-in-progress-700: var(--color-status-in-progress-700);
+    --ui-color-status-in-progress-800: var(--color-status-in-progress-800);
+    --ui-color-status-in-progress-900: var(--color-status-in-progress-900);
+
+    --ui-color-status-failed-50: var(--color-status-failed-50);
+    --ui-color-status-failed-100: var(--color-status-failed-100);
+    --ui-color-status-failed-200: var(--color-status-failed-200);
+    --ui-color-status-failed-300: var(--color-status-failed-300);
+    --ui-color-status-failed-400: var(--color-status-failed-400);
+    --ui-color-status-failed-500: var(--color-status-failed-500);
+    --ui-color-status-failed-600: var(--color-status-failed-600);
+    --ui-color-status-failed-700: var(--color-status-failed-700);
+    --ui-color-status-failed-800: var(--color-status-failed-800);
+    --ui-color-status-failed-900: var(--color-status-failed-900);
+
+    --ui-color-status-active-50: var(--color-status-active-50);
+    --ui-color-status-active-100: var(--color-status-active-100);
+    --ui-color-status-active-200: var(--color-status-active-200);
+    --ui-color-status-active-300: var(--color-status-active-300);
+    --ui-color-status-active-400: var(--color-status-active-400);
+    --ui-color-status-active-500: var(--color-status-active-500);
+    --ui-color-status-active-600: var(--color-status-active-600);
+    --ui-color-status-active-700: var(--color-status-active-700);
+    --ui-color-status-active-800: var(--color-status-active-800);
+    --ui-color-status-active-900: var(--color-status-active-900);
+
+    --ui-color-status-neutral-50: var(--color-status-neutral-50);
+    --ui-color-status-neutral-100: var(--color-status-neutral-100);
+    --ui-color-status-neutral-200: var(--color-status-neutral-200);
+    --ui-color-status-neutral-300: var(--color-status-neutral-300);
+    --ui-color-status-neutral-400: var(--color-status-neutral-400);
+    --ui-color-status-neutral-500: var(--color-status-neutral-500);
+    --ui-color-status-neutral-600: var(--color-status-neutral-600);
+    --ui-color-status-neutral-700: var(--color-status-neutral-700);
+    --ui-color-status-neutral-800: var(--color-status-neutral-800);
+    --ui-color-status-neutral-900: var(--color-status-neutral-900);
+}
+
+code {
+    user-select: text;
+}
+
+body {
+    background-color: var(--color-space-50);
+}

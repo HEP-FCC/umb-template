@@ -1,0 +1,66 @@
+services:
+    backend:
+        build:
+            context: ./backend
+            dockerfile: Dockerfile.dev
+        volumes:
+            - ./backend/app:/app/app
+            - ./backend/app/storage/data:/data # Mount local data directory for file watching
+            - ./backend/app/storage/data/tmp:/app/storage # Mount persistent storage for file watcher state
+            - app-locks:/app/locks # Mount shared volume for worker coordination
+        ports:
+            - "8000:8000"
+        environment:
+            - METADATA_BROWSER_POSTGRES_HOST=postgres # URL inside the docker compose network
+        restart: unless-stopped
+        networks:
+            - app-network
+        env_file:
+            - .env
+        depends_on:
+            - postgres
+
+    frontend:
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile.dev
+        volumes:
+            - ./frontend:/app
+            - /app/node_modules
+        ports:
+            - "3000:3000"
+        environment:
+            - HOST=${METADATA_BROWSER_FRONTEND_HOST:-0.0.0.0}
+        restart: unless-stopped
+        networks:
+            - app-network
+        env_file:
+            - .envfile
+        depends_on:
+            - backend
+
+    postgres:
+        image: postgres:17-alpine3.22
+        volumes:
+            - ./dev-database:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
+        environment:
+            - POSTGRES_PASSWORD=${METADATA_BROWSER_POSTGRES_PASSWORD}
+            - POSTGRES_USER=${METADATA_BROWSER_POSTGRES_USER}
+            - POSTGRES_DB=${METADATA_BROWSER_POSTGRES_DB}
+        restart: unless-stopped
+        networks:
+            - app-network
+        env_file:
+            - .env
+
+networks:
+    app-network:
+        driver: bridge
+
+volumes:
+    app-locks:
+        driver: local
+    dev-database:
+        driver: local

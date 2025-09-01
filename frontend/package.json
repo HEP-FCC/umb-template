@@ -1,0 +1,34 @@
+{
+  "name": "fcc-physics-frontend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "type-check": "nuxt typecheck"
+  },
+  "dependencies": {
+    "@nuxt/eslint": "1.4.1",
+    "@nuxt/fonts": "0.11.4",
+    "@nuxt/icon": "1.14.0",
+    "@nuxt/image": "1.10.0",
+    "@nuxt/scripts": "0.11.8",
+    "@nuxt/ui": "3.1.3",
+    "@unhead/vue": "^2.0.3",
+    "@vueuse/core": "^13.4.0",
+    "eslint": "^9.0.0",
+    "keycloak-js": "^26.2.0",
+    "nuxt": "^3.17.5",
+    "typescript": "^5.6.3",
+    "vue": "^3.5.17",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "eslint-plugin-unused-imports": "^4.2.0"
+  }
+}

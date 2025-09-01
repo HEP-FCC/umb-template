@@ -1,0 +1,401 @@
+/**
+ * Color Design Tokens - CSS Custom Properties
+ *
+ * This file defines all color-related CSS custom properties (variables) for the
+ * FCC Physics Events application. These variables can be used throughout your
+ * stylesheets and will integrate seamlessly with Tailwind CSS.
+ *
+ * The variables follow the format: --color-{semantic}-{shade}
+ * Example: --color-primary-500, --color-accent-100, etc.
+ */
+
+:root {
+    /* ==========================================================================
+     PRIMITIVE COLOR TOKENS
+     Raw color values organized by conceptual palettes
+     ========================================================================== */
+
+    /* ENERGY Palette - Primary branding and interactive elements */
+    --color-energy-main: #843af9;
+    --color-energy-50: #f3e8fe;
+    --color-energy-100: #e5d4fd;
+    --color-energy-200: #dabdfc;
+    --color-energy-300: #ceaafc;
+    --color-energy-400: #c094fb;
+    --color-energy-500: #b580fa;
+    --color-energy-600: #aa6efa;
+    --color-energy-700: #9c5bf9;
+    --color-energy-800: #924bf9;
+    --color-energy-900: #843af9;
+
+    /* SPACE Palette - Background and surface colors */
+    --color-space-main: #b6e3ef;
+    --color-space-50: #f6fcff;
+    --color-space-100: #f0f9fc;
+    --color-space-200: #e7f7fc;
+    --color-space-300: #e1f4f9;
+    --color-space-400: #d9f1f8;
+    --color-space-500: #d3eef6;
+    --color-space-600: #caebf5;
+    --color-space-700: #c4e8f2;
+    --color-space-800: #bce6f2;
+    --color-space-900: #b6e3ef;
+
+    /* FLASH Palette - Accent and highlight colors */
+    --color-flash-main: #eafb61;
+    --color-flash-50: #fcffdb;
+    --color-flash-100: #fcffdb;
+    --color-flash-200: #f9fecb;
+    --color-flash-300: #f6febb;
+    --color-flash-400: #f3feaa;
+    --color-flash-500: #f3fe9b;
+    --color-flash-600: #f0fb8c;
+    --color-flash-700: #edfb7c;
+    --color-flash-800: #edfb6f;
+    --color-flash-900: #eafb61;
+
+    /* EARTH Palette - Natural and grounding elements */
+    --color-earth-main: #9b826e;
+    --color-earth-50: #f5f2f0;
+    --color-earth-100: #ebe6e3;
+    --color-earth-200: #e0d9d4;
+    --color-earth-300: #d6ccc4;
+    --color-earth-400: #cec0b5;
+    --color-earth-500: #c4b5a8;
+    --color-earth-600: #baa999;
+    --color-earth-700: #b09b8a;
+    --color-earth-800: #a68f7b;
+    --color-earth-900: #9b826e;
+
+    /* ECO Palette - Success and environmental states */
+    --color-eco-main: #778701;
+    --color-eco-50: #f2f2e6;
+    --color-eco-100: #e3e8cc;
+    --color-eco-200: #d6dcb3;
+    --color-eco-300: #c9ce99;
+    --color-eco-400: #bbc280;
+    --color-eco-500: #aeb766;
+    --color-eco-600: #a0aa4d;
+    --color-eco-700: #919e34;
+    --color-eco-800: #849419;
+    --color-eco-900: #778701;
+
+    /* DEEP_BLUE Palette - Dark theme foundation */
+    --color-deep-blue-main: #10124a;
+    --color-deep-blue-50: #e8e8ed;
+    --color-deep-blue-100: #cfcedc;
+    --color-deep-blue-200: #b8b8c9;
+    --color-deep-blue-300: #9fa1b8;
+    --color-deep-blue-400: #878aa5;
+    --color-deep-blue-500: #707194;
+    --color-deep-blue-600: #565a82;
+    --color-deep-blue-700: #404270;
+    --color-deep-blue-800: #26285c;
+    --color-deep-blue-900: #10124a;
+
+    /* RADIANT_BLUE Palette - Pure blue spectrum for data visualization */
+    --color-radiant-blue-main: #0700ff;
+    --color-radiant-blue-50: #e6e5ff;
+    --color-radiant-blue-100: #ccccff;
+    --color-radiant-blue-200: #b2b3ff;
+    --color-radiant-blue-300: #9999ff;
+    --color-radiant-blue-400: #807fff;
+    --color-radiant-blue-500: #6666ff;
+    --color-radiant-blue-600: #4c4cff;
+    --color-radiant-blue-700: #3232ff;
+    --color-radiant-blue-800: #1a19ff;
+    --color-radiant-blue-900: #0700ff;
+
+    /* ==========================================================================
+     SEMANTIC COLOR TOKENS
+     Colors defined by their meaning and purpose
+     ========================================================================== */
+
+    /* Primary brand colors */
+    --color-primary-50: var(--color-deep-blue-50);
+    --color-primary-100: var(--color-deep-blue-100);
+    --color-primary-200: var(--color-deep-blue-200);
+    --color-primary-300: var(--color-deep-blue-300);
+    --color-primary-400: var(--color-deep-blue-400);
+    --color-primary-500: var(--color-deep-blue-500);
+    --color-primary-600: var(--color-deep-blue-600);
+    --color-primary-700: var(--color-deep-blue-700);
+    --color-primary-800: var(--color-deep-blue-800);
+    --color-primary-900: var(--color-deep-blue-900);
+    --color-primary: var(--color-deep-blue-main);
+
+    /* Secondary colors for supporting elements */
+    --color-secondary-50: var(--color-radiant-blue-50);
+    --color-secondary-100: var(--color-radiant-blue-100);
+    --color-secondary-200: var(--color-radiant-blue-200);
+    --color-secondary-300: var(--color-radiant-blue-300);
+    --color-secondary-400: var(--color-radiant-blue-400);
+    --color-secondary-500: var(--color-radiant-blue-500);
+    --color-secondary-600: var(--color-radiant-blue-600);
+    --color-secondary-700: var(--color-radiant-blue-700);
+    --color-secondary-800: var(--color-radiant-blue-800);
+    --color-secondary-900: var(--color-radiant-blue-900);
+    --color-secondary: var(--color-radiant-blue-main);
+
+    /* Accent colors for highlights and calls-to-action */
+    --color-accent-50: var(--color-energy-50);
+    --color-accent-100: var(--color-energy-100);
+    --color-accent-200: var(--color-energy-200);
+    --color-accent-300: var(--color-energy-300);
+    --color-accent-400: var(--color-energy-400);
+    --color-accent-500: var(--color-energy-500);
+    --color-accent-600: var(--color-energy-600);
+    --color-accent-700: var(--color-energy-700);
+    --color-accent-800: var(--color-energy-800);
+    --color-accent-900: var(--color-energy-900);
+    --color-accent: var(--color-energy-main);
+
+    /* Success states */
+    --color-success-50: var(--color-eco-50);
+    --color-success-100: var(--color-eco-100);
+    --color-success-200: var(--color-eco-200);
+    --color-success-300: var(--color-eco-300);
+    --color-success-400: var(--color-eco-400);
+    --color-success-500: var(--color-eco-500);
+    --color-success-600: var(--color-eco-600);
+    --color-success-700: var(--color-eco-700);
+    --color-success-800: var(--color-eco-800);
+    --color-success-900: var(--color-eco-900);
+    --color-success: var(--color-eco-main);
+
+    /* Warning states */
+    --color-warning-50: var(--color-earth-50);
+    --color-warning-100: var(--color-earth-100);
+    --color-warning-200: var(--color-earth-200);
+    --color-warning-300: var(--color-earth-300);
+    --color-warning-400: var(--color-earth-400);
+    --color-warning-500: var(--color-earth-500);
+    --color-warning-600: var(--color-earth-600);
+    --color-warning-700: var(--color-earth-700);
+    --color-warning-800: var(--color-earth-800);
+    --color-warning-900: var(--color-earth-900);
+    --color-warning: var(--color-earth-main);
+
+    /* Error states */
+    --color-error-50: #fef2f2;
+    --color-error-100: #fee2e2;
+    --color-error-200: #fecaca;
+    --color-error-300: #fca5a5;
+    --color-error-400: #f87171;
+    --color-error-500: #ef4444;
+    --color-error-600: #dc2626;
+    --color-error-700: #b91c1c;
+    --color-error-800: #991b1b;
+    --color-error-900: #7f1d1d;
+    --color-error: #ef4444;
+
+    /* Information states */
+    --color-info-50: var(--color-radiant-blue-50);
+    --color-info-100: var(--color-radiant-blue-100);
+    --color-info-200: var(--color-radiant-blue-200);
+    --color-info-300: var(--color-radiant-blue-300);
+    --color-info-400: var(--color-radiant-blue-400);
+    --color-info-500: var(--color-radiant-blue-500);
+    --color-info-600: var(--color-radiant-blue-600);
+    --color-info-700: var(--color-radiant-blue-700);
+    --color-info-800: var(--color-radiant-blue-800);
+    --color-info-900: var(--color-radiant-blue-900);
+    --color-info: var(--color-radiant-blue-main);
+
+    /* Gray scale */
+    --color-gray-50: var(--color-space-50);
+    --color-gray-100: var(--color-space-100);
+    --color-gray-200: var(--color-space-200);
+    --color-gray-300: var(--color-space-300);
+    --color-gray-400: var(--color-space-400);
+    --color-gray-500: var(--color-space-500);
+    --color-gray-600: var(--color-space-600);
+    --color-gray-700: var(--color-space-700);
+    --color-gray-800: var(--color-space-800);
+    --color-gray-900: var(--color-space-900);
+    --color-gray: var(--color-space-main);
+
+    /* Utility colors */
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-transparent: transparent;
+
+    /* ==========================================================================
+     LIGHT THEME VARIABLES
+     Theme-specific color assignments for light mode
+     ========================================================================== */
+
+    --theme-light-background-primary: var(--color-white);
+    --theme-light-background-secondary: var(--color-space-50);
+    --theme-light-background-tertiary: var(--color-space-100);
+
+    --theme-light-surface-primary: var(--color-white);
+    --theme-light-surface-secondary: var(--color-space-50);
+    --theme-light-surface-elevated: var(--color-white);
+
+    --theme-light-text-primary: var(--color-deep-blue-500);
+    --theme-light-text-secondary: var(--color-deep-blue-400);
+    --theme-light-text-tertiary: var(--color-eco-600);
+    --theme-light-text-inverse: var(--color-white);
+
+    --theme-light-border-primary: var(--color-space-300);
+    --theme-light-border-secondary: var(--color-space-200);
+    --theme-light-border-focus: var(--color-energy-500);
+
+    /* ==========================================================================
+     DARK THEME VARIABLES
+     Theme-specific color assignments for dark mode
+     ========================================================================== */
+
+    --theme-dark-background-primary: var(--color-deep-blue-500);
+    --theme-dark-background-secondary: var(--color-deep-blue-400);
+    --theme-dark-background-tertiary: var(--color-deep-blue-300);
+
+    --theme-dark-surface-primary: var(--color-deep-blue-400);
+    --theme-dark-surface-secondary: var(--color-deep-blue-300);
+    --theme-dark-surface-elevated: var(--color-deep-blue-300);
+
+    --theme-dark-text-primary: var(--color-white);
+    --theme-dark-text-secondary: var(--color-space-100);
+    --theme-dark-text-tertiary: var(--color-space-200);
+    --theme-dark-text-inverse: var(--color-deep-blue-500);
+
+    --theme-dark-border-primary: var(--color-deep-blue-300);
+    --theme-dark-border-secondary: var(--color-deep-blue-200);
+    --theme-dark-border-focus: var(--color-energy-400);
+}
+
+/* =============================================================================
+   DARK MODE OVERRIDES - DISABLED
+   Dark mode has been disabled to prevent inconsistent mobile rendering
+   ============================================================================= */
+
+/*
+[data-theme="dark"],
+.dark {
+    --color-background: var(--theme-dark-background-primary);
+    --color-surface: var(--theme-dark-surface-primary);
+    --color-text: var(--theme-dark-text-primary);
+    --color-border: var(--theme-dark-border-primary);
+}
+*/
+
+/* =============================================================================
+   UTILITY CLASSES
+   Helper classes for common color applications
+   ============================================================================= */
+
+.text-primary {
+    color: var(--color-primary);
+}
+.text-secondary {
+    color: var(--color-secondary);
+}
+.text-accent {
+    color: var(--color-accent);
+}
+.text-success {
+    color: var(--color-success);
+}
+.text-warning {
+    color: var(--color-warning);
+}
+.text-error {
+    color: var(--color-error);
+}
+.text-info {
+    color: var(--color-info);
+}
+
+.bg-primary {
+    background-color: var(--color-primary);
+}
+.bg-secondary {
+    background-color: var(--color-secondary);
+}
+.bg-accent {
+    background-color: var(--color-accent);
+}
+.bg-success {
+    background-color: var(--color-success);
+}
+.bg-warning {
+    background-color: var(--color-warning);
+}
+.bg-error {
+    background-color: var(--color-error);
+}
+.bg-info {
+    background-color: var(--color-info);
+}
+
+.border-primary {
+    border-color: var(--color-primary);
+}
+.border-secondary {
+    border-color: var(--color-secondary);
+}
+.border-accent {
+    border-color: var(--color-accent);
+}
+.border-success {
+    border-color: var(--color-e);
+}
+.border-warning {
+    border-color: var(--color-warning);
+}
+.border-error {
+    border-color: var(--color-error);
+}
+.border-info {
+    border-color: var(--color-info);
+}
+
+/* =============================================================================
+   DATA VISUALIZATION HELPERS
+   Special classes for charts and data display
+   ============================================================================= */
+
+.color-energy {
+    color: var(--color-energy-main);
+}
+.color-space {
+    color: var(--color-space-main);
+}
+.color-flash {
+    color: var(--color-flash-main);
+}
+.color-earth {
+    color: var(--color-earth-main);
+}
+.color-eco {
+    color: var(--color-eco-main);
+}
+.color-deep-blue {
+    color: var(--color-deep-blue-main);
+}
+.color-radiant-blue {
+    color: var(--color-radiant-blue-main);
+}
+
+.bg-energy {
+    background-color: var(--color-energy-main);
+}
+.bg-space {
+    background-color: var(--color-space-main);
+}
+.bg-flash {
+    background-color: var(--color-flash-main);
+}
+.bg-earth {
+    background-color: var(--color-earth-main);
+}
+.bg-eco {
+    background-color: var(--color-eco-main);
+}
+.bg-deep-blue {
+    background-color: var(--color-deep-blue-main);
+}
+.bg-radiant-blue {
+    background-color: var(--color-radiant-blue-main);
+}
