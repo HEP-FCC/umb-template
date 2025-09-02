@@ -10,6 +10,7 @@
 .env
 .env.*
 !.env.example
+.envfile
 
 # Logs
 logs

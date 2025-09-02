@@ -8,3 +8,4 @@ htmlcov
 .venv
 .pytest_cache
 .env*
+.envfile
