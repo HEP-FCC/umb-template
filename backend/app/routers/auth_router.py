@@ -33,7 +33,6 @@ AUTH_COOKIE_PREFIX = f"{config.get('general.cookie_prefix')}-auth"
 AUTH_ENABLED = str(config.get("auth.enabled", "true")).lower() == "true"
 CERN_CLIENT_ID = config.get("general.cern_client_id") if AUTH_ENABLED else None
 CERN_CLIENT_SECRET = config.get("general.cern_client_secret") if AUTH_ENABLED else None
-CERN_OIDC_URL = config.get("auth.cern_oidc_url") if AUTH_ENABLED else None
 
 # This will be injected from main.py
 database: Database
@@ -47,11 +46,11 @@ def init_dependencies(db: Database) -> None:
 
 # OAuth setup - only if auth is enabled and config is available
 oauth = None
-if AUTH_ENABLED and CERN_CLIENT_ID and CERN_CLIENT_SECRET and CERN_OIDC_URL:
+if AUTH_ENABLED and CERN_CLIENT_ID and CERN_CLIENT_SECRET and AUTH_OIDC_URL:
     oauth = OAuth()
     oauth.register(
         name="provider",
-        server_metadata_url=CERN_OIDC_URL,
+        server_metadata_url=AUTH_OIDC_URL,
         client_id=CERN_CLIENT_ID,
         client_secret=CERN_CLIENT_SECRET,
         client_kwargs={

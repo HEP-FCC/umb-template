@@ -313,7 +313,7 @@ async def _process_single_entity(
     database: "Database",
 ) -> None:
     """Process a single entity using pre-populated navigation entity cache."""
-    entity_name = _generate_entity_name(entity_data, idx, database)
+    entity_name = _generate_entity_name(entity_data, idx)
     logger.info(f"Processing: {entity_name}")
 
     # Get foreign key IDs from cache instead of creating individually
