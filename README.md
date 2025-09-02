@@ -6,6 +6,7 @@ Customizable and modularized, full-stack web application template for creating a
 
 ## 🌌 Example adaptations
 
+- [Example of a configuration commit based on the docs/TUTORIAL.md](https://github.com/HEP-FCC/umb-bookstore-example/commit/264c5afe6173dc2e4d7e4db7a835f7c2d0c16d81)
 - <https://fcc-physics-events.web.cern.ch>
 
 ## ✨ Features
