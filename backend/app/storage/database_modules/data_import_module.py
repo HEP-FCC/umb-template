@@ -517,8 +517,8 @@ async def _create_main_entity(
 
     # Generic metadata processing with automatic date/timestamp parsing
     # Extract title from metadata if available, fallback to name
-    title = metadata_dict.get("title", name) if metadata_dict else name
-    entity_dict["title"] = title
+    title = metadata_dict.get("name", name) if metadata_dict else name
+    entity_dict["name"] = title
 
     # Extract other direct database fields from metadata if available
     if metadata_dict:
@@ -538,7 +538,6 @@ async def _create_main_entity(
             "last_edited_at",
             "edited_by_name",
             "metadata",
-            "title",
         }
 
         # Get metadata fields that correspond to actual database columns
