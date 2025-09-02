@@ -640,13 +640,8 @@ class AuthDependency:
                     "sub": "unauthenticated",
                 }
 
-            # Get configuration and setup OAuth client
-            CERN_CLIENT_ID = config.get("general.cern_client_id")
-            CERN_CLIENT_SECRET = config.get("general.cern_client_secret")
-            CERN_OIDC_URL = config.get("auth.cern_oidc_url")
-
             # Check if required auth configuration is available
-            if not CERN_CLIENT_ID or not CERN_CLIENT_SECRET or not CERN_OIDC_URL:
+            if not CERN_CLIENT_ID or not CERN_CLIENT_SECRET or not AUTH_OIDC_URL:
                 logger.warning(
                     "Auth is enabled but required configuration is missing, returning unauthenticated user"
                 )
