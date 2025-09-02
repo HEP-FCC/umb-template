@@ -88,7 +88,7 @@ class ExampleEntity(BaseEntityData):
     """
 
     # Example core fields - customize these for your domain
-    title: str | None = Field(default=None)
+    name: str | None = Field(default=None, alias="title")
     description: str | None = Field(default=None)
     comment: str | None = Field(default=None)
     status: str | None = Field(default=None)
