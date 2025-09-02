@@ -380,12 +380,10 @@ def _get_name_for_entity(entity_data: BaseEntityData, field_name: str) -> str | 
     return entity_name
 
 
-def _generate_entity_name(
-    entity_data: BaseEntityData, idx: int, database: "Database"
-) -> str:
+def _generate_entity_name(entity_data: BaseEntityData, idx: int) -> str:
     """Generate entity name with fallback if the configured entity name field is missing."""
     # Get the configured entity name field from config
-    entity_name_field = database.config["application"].get("entity_name_field", "name")
+    entity_name_field = "name"
 
     # Try to get the name from the configured field, then fallback to standard fields
     entity_name = getattr(entity_data, entity_name_field, None) or getattr(
@@ -529,12 +527,11 @@ async def _create_main_entity(
         valid_columns = await get_valid_table_columns(conn, main_table)
 
         # Get the configured entity name field from config
-        entity_name_field = database.config["application"].get(
-            "entity_name_field", "name"
-        )
+        entity_name_field = "name"
 
         # Exclude system columns that shouldn't be set directly
         system_columns = {
+            "name",
             "uuid",
             "created_at",
             "updated_at",
@@ -542,7 +539,6 @@ async def _create_main_entity(
             "edited_by_name",
             "metadata",
             "title",
-            entity_name_field,  # Dynamic based on config (default: "name")
         }
 
         # Get metadata fields that correspond to actual database columns

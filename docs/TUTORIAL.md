@@ -272,7 +272,7 @@ edited_by_name TEXT DEFAULT NULL,              -- Last editor name
 #### Schema Design Guidelines
 
 - **Primary Key Naming**: **Always use `entity_id`** as your main table's primary key column name for maximum template compatibility
-- **Entity Name Field**: **JSON data must include a `name` field** for each entity (configurable via `METADATA_BROWSER_ENTITY_NAME_FIELD`)
+- **Entity Name Field**: **JSON data must include a `name` field**. This can be made configurable in the future if required.
 - **System Columns**: Certain database columns are treated as "system columns" and excluded from regular field mapping. The default system columns are: `entity_id`, `uuid`, `created_at`, `updated_at`, and the configured entity name field (by default `name`). This prevents conflicts during data import and ensures consistent behavior across all entity operations.
 - **Navigation Tables**: Create lookup tables for categorical data (publishers, genres, etc.)
 - **Foreign Keys**: Main table should reference navigation tables via `{table}_id` columns
@@ -350,9 +350,7 @@ Every entity in your JSON data must include:
 }
 ```
 
-- **`name` field**: Primary identifier used for entity display, search, and UUID generation
-- Can be customized using `METADATA_BROWSER_ENTITY_NAME_FIELD` environment variable
-- If missing, entities will receive auto-generated fallback names
+- **`name` field**: Primary identifier used for entity display, search, and UUID generation.
 
 #### System Columns Configuration
 
@@ -360,18 +358,11 @@ The system automatically excludes certain "system columns" from regular field ma
 
 **Default system columns:**
 
+- `name` - Mandatory name field
 - `entity_id` - Primary key
 - `uuid` - Unique identifier
 - `created_at` - Record creation timestamp
 - `updated_at` - Record modification timestamp
-- Entity name field (default: `name`) - Configurable via `METADATA_BROWSER_ENTITY_NAME_FIELD`
-
-**Customizing the entity name field:**
-
-```bash
-# In your .env file
-METADATA_BROWSER_ENTITY_NAME_FIELD="title"  # Use "title" instead of "name"
-```
 
 This configuration ensures that your chosen field (e.g., `title`, `book_name`, `publication_title`) is treated as the primary entity identifier while being excluded from generic field processing.
 
