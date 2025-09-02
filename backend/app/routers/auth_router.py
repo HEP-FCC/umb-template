@@ -7,6 +7,7 @@ from starlette.responses import RedirectResponse
 
 from app.storage.database import Database
 from app.utils.auth_utils import (
+    AUTH_OIDC_URL,
     clear_auth_cookies,
     extract_auth_cookies,
     get_logout_url,
