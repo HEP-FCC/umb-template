@@ -86,7 +86,7 @@ async def refresh_auth_token(request: Request, response: Response) -> JSONRespon
     """
 
     # If auth is disabled, return success without doing anything
-    if not config.get("auth.enabled", True):
+    if not AUTH_ENABLED:
         return JSONResponse(
             content={
                 "status": "success",
@@ -200,7 +200,7 @@ async def login(request: Request) -> Any:
     """Initiate OAuth login with CERN."""
 
     # If auth is disabled, redirect to frontend
-    if not config.get("auth.enabled", True):
+    if not AUTH_ENABLED:
         logger.info("Auth is disabled, redirecting to frontend")
         return RedirectResponse(url=FRONTEND_URL)
 
@@ -221,7 +221,7 @@ async def auth(request: Request) -> Any:
     """OAuth callback route for authentication."""
 
     # If auth is disabled, redirect to frontend
-    if not config.get("auth.enabled", True):
+    if not AUTH_ENABLED:
         logger.info("Auth is disabled, redirecting to frontend")
         return RedirectResponse(url=FRONTEND_URL)
 
@@ -270,7 +270,7 @@ async def logout(request: Request) -> JSONResponse:
     """Clear all authentication cookies, session, and get CERN SSO logout URL."""
 
     # If auth is disabled, just return a generic logout response
-    if not config.get("auth.enabled", True):
+    if not AUTH_ENABLED:
         return JSONResponse(content={"logout_url": FRONTEND_URL})
 
     # If OAuth is not configured, return generic logout
@@ -297,7 +297,7 @@ async def get_session_status(request: Request) -> JSONResponse:
     """
 
     # If auth is disabled, return a generic authenticated user
-    if not config.get("auth.enabled", True):
+    if not AUTH_ENABLED:
         return JSONResponse(
             content={
                 "authenticated": True,

@@ -607,12 +607,8 @@ class AuthDependency:
             HTTPException: If authentication or authorization fails (when auth is enabled and required_role is not None)
         """
         try:
-            # Get configuration to check if auth is enabled
-            config = get_config()
-            auth_enabled = config.get("auth.enabled", True)
-
             # If auth is disabled globally, return a generic unauthenticated user
-            if not auth_enabled:
+            if not AUTH_ENABLED:
                 logger.debug(
                     "Authentication is disabled globally, returning generic user"
                 )
@@ -659,7 +655,7 @@ class AuthDependency:
             oauth = OAuth()
             oauth.register(
                 name="provider",
-                server_metadata_url=CERN_OIDC_URL,
+                server_metadata_url=AUTH_OIDC_URL,
                 client_id=CERN_CLIENT_ID,
                 client_secret=CERN_CLIENT_SECRET,
                 client_kwargs={

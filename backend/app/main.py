@@ -17,7 +17,7 @@ from app.routers import entities_router as entities_router
 from app.routers import navigation_router as navigation_router
 from app.services.file_watcher import FileWatcherService
 from app.storage.database import Database
-from app.utils.auth_utils import load_cern_endpoints
+from app.utils.auth_utils import AUTH_ENABLED, load_cern_endpoints
 from app.utils.config_utils import get_config
 from app.utils.gclql_query_parser_utils import QueryParser
 from app.utils.logging_utils import get_logger, setup_logging
@@ -39,7 +39,7 @@ async def lifespan(_: FastAPI) -> Any:
     await database.setup(config)
 
     # Only load CERN endpoints if authentication is enabled
-    if config.get("auth.enabled", True):
+    if AUTH_ENABLED:
         logger.info("Authentication is enabled, loading CERN endpoints...")
         await load_cern_endpoints()
     else:
@@ -66,7 +66,7 @@ app = FastAPI(
 
 
 # Only add session middleware if auth is enabled
-if config.get("auth.enabled", True):
+if AUTH_ENABLED:
     secret_key = config.get("general.application_secret_key")
     if not secret_key:
         logger.warning(
