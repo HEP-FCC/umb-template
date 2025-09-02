@@ -555,34 +555,8 @@ async def _create_main_entity(
             # Use generic parsing for all fields
             parsed_value = try_parse_value_auto(value)
 
-            # Special handling for authors - ensure it's a list and not empty
-            if field == "authors":
-                logger.debug(
-                    f"Processing authors field for {name}: {parsed_value} (type: {type(parsed_value)})"
-                )
-                if isinstance(parsed_value, list) and len(parsed_value) > 0:
-                    entity_dict[field] = parsed_value
-                    logger.debug(f"Set authors to: {parsed_value}")
-                elif isinstance(parsed_value, str) and parsed_value.strip():
-                    # Convert single author string to array
-                    entity_dict[field] = [parsed_value.strip()]
-                    logger.debug(
-                        f"Converted single author string to array: {[parsed_value.strip()]}"
-                    )
-                else:
-                    logger.warning(
-                        f"Invalid or empty authors field: {parsed_value}, using fallback"
-                    )
-                    entity_dict[field] = ["Unknown Author"]
-                continue
-
             # For all other fields, use the parsed value directly
             entity_dict[field] = parsed_value
-
-        # Ensure required fields are present with fallbacks
-        if "authors" not in entity_dict or not entity_dict["authors"]:
-            logger.warning(f"No authors found for {name}, using fallback")
-            entity_dict["authors"] = ["Unknown Author"]
 
     # Add all foreign key IDs dynamically
     entity_dict.update(foreign_key_ids)
