@@ -81,7 +81,7 @@ const { appTitle } = useAppConfiguration();
 const router = useRouter();
 
 // Check if user is authenticated
-const isAuthenticated = computed(() => !!user.value);
+const isAuthenticated = computed(() => APP_CONFIG.auth.enabled && !!user.value?.given_name);
 
 const handleLogoClick = async (event: Event) => {
     // Prevent the default link navigation

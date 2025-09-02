@@ -60,7 +60,7 @@ export function useAuth() {
 
         try {
             // If auth is disabled in frontend config, behave as if always authenticated
-            if (!config.public.authEnabled) {
+            if (!APP_CONFIG.auth.enabled) {
                 authState.value.isAuthenticated = true;  // Changed from false to true
                 authState.value.user = {
                     preferred_username: "Guest User",
