@@ -116,6 +116,22 @@ cookies: {
 
 This will generate cookie names like `{namePrefix}-search-preferences` and `{namePrefix}-metadata-preferences`. This approach ensures that multiple deployments of the template on the same domain won't conflict with each other's user preferences.
 
+#### Frontend Redirects Configuration
+
+The template also includes a flexible redirect system for handling legacy URLs or migrating from existing websites. This is particularly useful when transitioning from an old site structure to the new metadata browser.
+
+**Configuration File**: `frontend/config/redirects.json`
+
+```json
+{
+    "redirects": {
+        "/old/legacy-path.php": "/new/path",
+        "/another/old/path": "/categories/books",
+        "/removed-page": ""
+    }
+}
+```
+
 #### Required System Columns
 
 Your main table **must include** these system columns for proper functionality:
@@ -173,12 +189,16 @@ METADATA_BROWSER_APPLICATION_SECRET_KEY="your-very-secure-random-key"
 docker-compose up --build -d
 ```
 
-### 4. Access the Application
+### 5. Access the Application
 
 - **Frontend**: <http://localhost:3000>
 - **Backend API**: <http://localhost:8000>
 
 > **💡 Authentication Note**: If you disabled authentication, you can immediately start using the application. If you enabled CERN SSO, users will need to authenticate before accessing protected endpoints.
+
+## 🚢 Kubernetes Deployment with Kompose
+
+If you prefer to deploy to Kubernetes instead of using Docker Compose, you can use [Kompose](https://kompose.io/) to automatically convert your Docker Compose files to Kubernetes manifests.
 
 ## 📖 Guide
 
