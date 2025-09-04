@@ -486,7 +486,7 @@ async def _create_main_entity_with_conflict_resolution(
     """Create main entity using UUID-based conflict resolution."""
     try:
         await _create_main_entity(
-            conn, entity_name, metadata_dict, foreign_key_ids, main_table, database
+            conn, entity_name, metadata_dict, foreign_key_ids, main_table
         )
     except Exception as e:
         # Log any errors but don't do name-based retries since UUID handles uniqueness
@@ -500,7 +500,6 @@ async def _create_main_entity(
     metadata_dict: dict[str, Any],
     foreign_key_ids: dict[str, int | None],
     main_table: str,
-    database: "Database",
 ) -> None:
     """Create the main entity in the database."""
     # Generate deterministic UUID based on key fields
