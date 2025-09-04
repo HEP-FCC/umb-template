@@ -324,7 +324,7 @@ async def _process_single_entity(
     # Get metadata and create the main entity
     metadata_dict = entity_data.get_all_metadata()
     await _create_main_entity_with_conflict_resolution(
-        conn, entity_name, metadata_dict, foreign_key_ids, main_table, database
+        conn, entity_name, metadata_dict, foreign_key_ids, main_table
     )
 
 
@@ -481,7 +481,6 @@ async def _create_main_entity_with_conflict_resolution(
     metadata_dict: dict[str, Any],
     foreign_key_ids: dict[str, int | None],
     main_table: str,
-    database: "Database",
 ) -> None:
     """Create main entity using UUID-based conflict resolution."""
     try:
