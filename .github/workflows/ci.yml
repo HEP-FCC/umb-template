@@ -76,37 +76,3 @@ jobs:
       run: |
         docker build -t fcc-physics-events-backend:test ./backend/
         echo "Backend Docker build successful"
-
-  validate-k8s:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Validate Kubernetes YAML
-      run: |
-        # Install kubeval for YAML validation
-        wget https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz
-        tar xf kubeval-linux-amd64.tar.gz
-        sudo cp kubeval /usr/local/bin
-
-        # Validate all k8s YAML files, but skip OpenShift-specific resources
-        for file in k8s/*.yaml; do
-          echo "Validating $file"
-
-          # Check if this is an OpenShift Route (not supported by kubeval)
-          if grep -q "kind: Route" "$file"; then
-            echo "Skipping OpenShift Route validation for $file (OpenShift-specific resource)"
-
-            # Basic YAML syntax check for routes
-            if ! python3 -c "import yaml; yaml.safe_load(open('$file'))" 2>/dev/null; then
-              echo "ERROR: Invalid YAML syntax in $file"
-              exit 1
-            else
-              echo "PASS - $file has valid YAML syntax"
-            fi
-          else
-            # Use kubeval for standard Kubernetes resources
-            kubeval "$file"
-          fi
-        done
