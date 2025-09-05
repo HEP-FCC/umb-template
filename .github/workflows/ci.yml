@@ -1,0 +1,112 @@
+name: CI - Test and Validate
+
+on:
+  push:
+    branches: [ master, main, dev, develop ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  validate-frontend:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        cache: 'yarn'
+        cache-dependency-path: frontend/yarn.lock
+
+    - name: Install frontend dependencies
+      working-directory: ./frontend
+      run: yarn install --frozen-lockfile
+
+    - name: Lint frontend code
+      working-directory: ./frontend
+      run: yarn lint
+
+    - name: Type check frontend
+      working-directory: ./frontend
+      run: yarn type-check
+
+    - name: Build frontend
+      working-directory: ./frontend
+      run: yarn build
+
+    - name: Test frontend Docker build
+      run: |
+        docker build -t fcc-physics-events-frontend:test ./frontend/
+        echo "Frontend Docker build successful"
+
+  validate-backend:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v4
+      with:
+        version: "0.7.14"
+
+    - name: Install backend dev dependencies
+      working-directory: ./backend
+      run: |
+        uv sync --frozen --no-install-project --only-dev
+
+    - name: Lint backend code
+      working-directory: ./backend
+      run: |
+        uv run ruff check .
+
+    - name: Type check backend
+      working-directory: ./backend
+      run: |
+        uv run mypy app
+
+    - name: Test backend Docker build
+      run: |
+        docker build -t fcc-physics-events-backend:test ./backend/
+        echo "Backend Docker build successful"
+
+  validate-k8s:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Validate Kubernetes YAML
+      run: |
+        # Install kubeval for YAML validation
+        wget https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz
+        tar xf kubeval-linux-amd64.tar.gz
+        sudo cp kubeval /usr/local/bin
+
+        # Validate all k8s YAML files, but skip OpenShift-specific resources
+        for file in k8s/*.yaml; do
+          echo "Validating $file"
+
+          # Check if this is an OpenShift Route (not supported by kubeval)
+          if grep -q "kind: Route" "$file"; then
+            echo "Skipping OpenShift Route validation for $file (OpenShift-specific resource)"
+
+            # Basic YAML syntax check for routes
+            if ! python3 -c "import yaml; yaml.safe_load(open('$file'))" 2>/dev/null; then
+              echo "ERROR: Invalid YAML syntax in $file"
+              exit 1
+            else
+              echo "PASS - $file has valid YAML syntax"
+            fi
+          else
+            # Use kubeval for standard Kubernetes resources
+            kubeval "$file"
+          fi
+        done
