@@ -521,9 +521,6 @@ async def _create_main_entity(
 
         valid_columns = await get_valid_table_columns(conn, main_table)
 
-        # Get the configured entity name field from config
-        entity_name_field = "name"
-
         # Exclude system columns that shouldn't be set directly
         system_columns = {
             "name",

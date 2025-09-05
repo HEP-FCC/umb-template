@@ -146,7 +146,7 @@
                             accept=".json"
                             class="hidden"
                             @change="handleFileSelection"
-                        />
+                        >
 
                         <!-- Force Override Checkbox -->
                         <div class="flex items-center gap-2 p-3 bg-amber-50 border border-amber-200 rounded-lg">

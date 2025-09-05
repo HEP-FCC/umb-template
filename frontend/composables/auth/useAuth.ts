@@ -22,7 +22,6 @@ interface AuthState {
  */
 export function useAuth() {
     const { initiateLogin, logoutUser, getSessionStatus, manualRefreshToken } = useApiClient();
-    const config = useRuntimeConfig();
 
     // Use global state to ensure consistency across components
     const authState = useState<AuthState>(
