@@ -112,28 +112,6 @@ The template uses a **dynamic schema discovery** approach. You define:
 Replace the contents of `backend/app/storage/database.sql`:
 
 ```sql
-F
-```
-
-### Step 2.2: Configure the Application
-
-The template is designed to be configured primarily through **environment variables** rather than editing HOCON files directly. This makes deployment and customization easier across different environments.
-
-Add the following environment variables to your `.env` file to configure the main table and navigation:
-
-```bash
-# Main table configuration (REQUIRED)
-METADATA_BROWSER_MAIN_TABLE="books"
-
-# Additional application settings
-METADATA_BROWSER_TIMEOUT="30"
-METADATA_BROWSER_DEFAULT_PAGE_SIZE="25"
-METADATA_BROWSER_MAX_PAGE_SIZE="1000"
-```
-
-> **💡 Configuration Best Practice**: While you can edit `backend/app/config.conf` directly, using environment variables is recommended for easier deployment and environment-specific configuration. All HOCON settings support environment variable overrides using the `${?VARIABLE_NAME}` syntax.
-
-```sql
 -- Extensions for better search performance
 CREATE EXTENSION IF NOT EXISTS pg_trgm;
 
@@ -246,6 +224,24 @@ ALTER TABLE genres ALTER COLUMN name SET STATISTICS 100;
 ALTER TABLE languages ALTER COLUMN name SET STATISTICS 100;
 ALTER TABLE formats ALTER COLUMN name SET STATISTICS 100;
 ```
+
+### Step 2.2: Configure the Application
+
+The template is designed to be configured primarily through **environment variables** rather than editing HOCON files directly. This makes deployment and customization easier across different environments.
+
+Add the following environment variables to your `.env` file to configure the main table and navigation:
+
+```bash
+# Main table configuration (REQUIRED)
+METADATA_BROWSER_MAIN_TABLE="books"
+
+# Additional application settings
+METADATA_BROWSER_TIMEOUT="30"
+METADATA_BROWSER_DEFAULT_PAGE_SIZE="25"
+METADATA_BROWSER_MAX_PAGE_SIZE="1000"
+```
+
+> **💡 Configuration Best Practice**: While you can edit `backend/app/config.conf` directly, using environment variables is recommended for easier deployment and environment-specific configuration. All HOCON settings support environment variable overrides using the `${?VARIABLE_NAME}` syntax.
 
 ### Step 2.2: Schema Requirements and Best Practices
 
