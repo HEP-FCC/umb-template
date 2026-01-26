@@ -1,10 +1,10 @@
 # Tutorial: Building a Bookstore Metadata Browser
 
-This tutorial walks you through adapting the Universal Metadata Browser Template to create a **Bookstore Metadata Briwser** - a complete example that demonstrates all the key concepts you'll need for your own domain.
+This tutorial walks you through adapting the Universal Metadata Browser Template to create a **Bookstore Metadata Browser** - a complete example that demonstrates all the key concepts you'll need for your own domain.
 
 ## 🎯 What We're Building
 
-By the end of this tutorial, you'll have a fully functional portal that can:
+By the end of this tutorial, you'll have a fully functional browser that can:
 
 - Import book metadata from JSON files
 - Search books by title, author, genre, and publisher
@@ -27,7 +27,7 @@ By the end of this tutorial, you'll have a fully functional portal that can:
 5. [Configuring Search and Navigation](#5-configuring-search-and-navigation)
 6. [Customizing the Frontend](#6-customizing-the-frontend)
 7. [Adding Sample Data](#7-adding-sample-data)
-8. [Testing Your Portal](#8-testing-your-portal)
+8. [Testing Your Browser](#8-testing-your-browser)
 
 ---
 
@@ -37,7 +37,7 @@ By the end of this tutorial, you'll have a fully functional portal that can:
 
 ```bash
 # Clone the template repository
-git clone https://github.com/your-org/generic-metadata-portal.git bookstore-catalog
+git clone https://github.com/your-org/generic-metadata-browser.git bookstore-catalog
 cd bookstore-catalog
 
 # Copy environment configuration
@@ -575,7 +575,7 @@ export const APP_CONFIG = {
 
     branding: {
         title: "Bookstore Catalog",
-        appTitle: "Bookstore Catalog Portal",
+        appTitle: "Bookstore Catalog Browser",
         description: "Discover and explore our book collection",
         defaultTitle: "Book Search",
     },
@@ -722,7 +722,7 @@ Create `backend/app/storage/data/sample_books.json`:
 
 ---
 
-## 8. Testing Your Portal
+## 8. Testing Your Browser
 
 ### Step 7.1: Start Your Application
 
@@ -743,7 +743,7 @@ You should see logs indicating:
 
 ### Step 7.2: Test the Frontend
 
-1. **Access the Portal**: Go to `http://localhost:3000`
+1. **Access the Browser**: Go to `http://localhost:3000`
 
 2. **Test Search**:
    - Try searching for: `Gatsby`, `Harari`, `science fiction`
@@ -812,7 +812,7 @@ curl "http://localhost:8000/schema"
 
 ## 🎉 Congratulations
 
-You've successfully created a Bookstore Catalog Portal! Your system can now:
+You've successfully created a Bookstore Catalog Browser! Your system can now:
 
 ✅ Import book metadata from JSON files
 ✅ Provide advanced search capabilities
@@ -823,7 +823,7 @@ You've successfully created a Bookstore Catalog Portal! Your system can now:
 
 ## 🔄 Next Steps
 
-Now that you have a working bookstore portal, consider:
+Now that you have a working bookstore browser, consider:
 
 1. **Adding More Data**: Import larger datasets, connect to book APIs
 2. **Enhanced Search**: Add price ranges, publication date filters, advanced metadata search
@@ -903,4 +903,4 @@ This template is currently optimized for **CERN's OIDC implementation** and incl
 
 ---
 
-**Need Help?** Check out the [GitHub Issues](https://github.com/your-org/generic-metadata-portal/issues) for community support and examples.
+**Need Help?** Check out the [GitHub Issues](https://github.com/your-org/generic-metadata-browser/issues) for community support and examples.
