@@ -120,7 +120,7 @@ export function useEntitySearch() {
         // Create a map to deduplicate fields based on their labels
         const fieldMap = new Map<string, { label: string; value: string }>();
 
-        sortState.availableFields.forEach((field) => {
+        sortState.availableFields.forEach((field: string) => {
             // Use the original field name as the label (without normalization)
             let label: string;
             if (field.startsWith("metadata.")) {
@@ -458,8 +458,10 @@ export function useEntitySearch() {
 
     const updateEntity = (index: number, entity: Entity): void => {
         if (index >= 0 && index < entities.value.length) {
-            // Use splice to ensure Vue reactivity is triggered
-            entities.value.splice(index, 1, { ...entity });
+            // Create a new array to trigger shallowRef reactivity
+            const newEntities = [...entities.value];
+            newEntities[index] = { ...entity };
+            entities.value = newEntities;
         }
     };
 
@@ -486,7 +488,7 @@ export function useEntitySearch() {
     // Watch preferences and sync to local state
     watch(
         () => searchPreferences.sortBy.value,
-        (newSortBy) => {
+        (newSortBy: string) => {
             if (sortState.sortBy !== newSortBy) {
                 sortState.sortBy = newSortBy;
                 sortState.field = newSortBy;
@@ -497,7 +499,7 @@ export function useEntitySearch() {
 
     watch(
         () => searchPreferences.sortOrder.value,
-        (newSortOrder) => {
+        (newSortOrder: "asc" | "desc") => {
             if (sortState.sortOrder !== newSortOrder) {
                 sortState.sortOrder = newSortOrder;
                 sortState.order = newSortOrder;
@@ -508,7 +510,7 @@ export function useEntitySearch() {
 
     watch(
         () => searchPreferences.pageSize.value,
-        (newPageSize) => {
+        (newPageSize: number) => {
             if (scrollState.pageSize !== newPageSize) {
                 scrollState.pageSize = newPageSize;
             }
@@ -519,7 +521,7 @@ export function useEntitySearch() {
     // Watch route query parameter to sync search query
     watch(
         () => route.query.q,
-        (newQuery) => {
+        (newQuery: string | (string | null)[] | null | undefined) => {
             const queryString = (newQuery as string) || "";
             if (userSearchQuery.value !== queryString) {
                 userSearchQuery.value = queryString;
