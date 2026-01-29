@@ -11,7 +11,7 @@
             <!-- Entity cards -->
             <UCard
                 v-for="(entity, index) in entities"
-                :key="getEntityId(entity)"
+                :key="`${getEntityId(entity)}-${entity.updated_at || ''}`"
                 :data-entity-card="index"
                 :ui="{ body: 'sm:p-1.5' }"
                 class="overflow-hidden select-text cursor-pointer root-p-0"

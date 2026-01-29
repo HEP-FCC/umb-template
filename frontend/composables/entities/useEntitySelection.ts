@@ -171,7 +171,7 @@ export function useEntitySelection() {
      * Download selected entities as JSON file
      */
     async function downloadSelectedEntities(): Promise<void> {
-        const selectedEntityIds = Array.from(selectionState.selectedEntities);
+        const selectedEntityIds = Array.from(selectionState.selectedEntities) as number[];
         if (selectedEntityIds.length === 0) {
             return;
         }
@@ -394,10 +394,12 @@ export function useEntitySelection() {
             // Use the edited JSON if provided, otherwise fall back to the edit state JSON
             const jsonToSave = editedJson || editState.editedJson;
             const parsedMetadata = JSON.parse(jsonToSave);
+            // Wrap metadata in the format expected by the backend
+            const payload = { entity_id: entityId, metadata: parsedMetadata };
 
             // Call the backend API to save metadata with cookie-based authentication
             const { updateEntity } = useApiClient();
-            await updateEntity(entityId, parsedMetadata);
+            const updatedEntity = await updateEntity(entityId, payload);
 
             toast.add({
                 title: "Success",
@@ -405,14 +407,17 @@ export function useEntitySelection() {
                 color: "success",
             });
 
-            // Update the entity in the local state
+            // Update the entity in the local state using server response
             const entityIndex = entities.findIndex((entity: Entity) => getPrimaryKeyValue(entity) === entityId);
             if (entityIndex !== -1) {
-                updateEntityInArray(entityIndex, {
+                // Use server's metadata if provided, otherwise use the metadata we sent
+                // (server may return flattened data without a 'metadata' key)
+                const mergedEntity = {
                     ...entities[entityIndex],
-                    entity_id: entityId,
-                    metadata: parsedMetadata,
-                });
+                    ...updatedEntity,
+                    metadata: updatedEntity.metadata || parsedMetadata,
+                };
+                updateEntityInArray(entityIndex, mergedEntity);
             }
 
             // Exit edit mode
@@ -485,7 +490,7 @@ export function useEntitySelection() {
      * Delete selected entities with confirmation
      */
     async function deleteSelectedEntities(): Promise<void> {
-        const selectedEntityIds = Array.from(selectionState.selectedEntities);
+        const selectedEntityIds = Array.from(selectionState.selectedEntities) as number[];
         if (selectedEntityIds.length === 0) {
             return;
         }

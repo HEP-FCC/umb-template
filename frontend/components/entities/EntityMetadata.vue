@@ -1,6 +1,6 @@
 <template>
     <div
-        v-memo="[props.entityId, Object.keys(props.metadata).length, editState?.isEditing, lockStatesForTemplate]"
+        v-memo="[props.entityId, JSON.stringify(props.metadata), editState?.isEditing, lockStatesForTemplate]"
         class="rounded border-t bg-white"
         style="border-color: var(--theme-light-border-primary)"
     >
@@ -35,8 +35,8 @@
                             props.editState?.isSaving
                                 ? "Saving..."
                                 : isAuthenticated
-                                ? "Save changes"
-                                : "Login required"
+                                  ? "Save changes"
+                                  : "Login required"
                         }}
                     </UButton>
                     <UButton
@@ -59,6 +59,8 @@
                     resize
                     class="font-mono text-sm w-full"
                     autofocus
+                    @keydown.stop
+                    @keyup.stop
                 />
                 <div class="flex items-center justify-between mt-3 text-xs">
                     <span>{{ getJsonStats(localEditJson) }}</span>
@@ -280,8 +282,8 @@
                                                     pendingLockChanges.has(field.key)
                                                         ? 'Updating lock state...'
                                                         : isFieldLocked(field.key)
-                                                        ? `Unlock ${field.displayName}`
-                                                        : `Lock ${field.displayName}`
+                                                          ? `Unlock ${field.displayName}`
+                                                          : `Lock ${field.displayName}`
                                                 "
                                                 :popper="{ placement: 'top' }"
                                             >
@@ -290,8 +292,8 @@
                                                         pendingLockChanges.has(field.key)
                                                             ? 'i-heroicons-arrow-path'
                                                             : isFieldLocked(field.key)
-                                                            ? 'i-heroicons-lock-closed'
-                                                            : 'i-heroicons-lock-open'
+                                                              ? 'i-heroicons-lock-closed'
+                                                              : 'i-heroicons-lock-open'
                                                     "
                                                     color="primary"
                                                     variant="ghost"
@@ -414,7 +416,7 @@ const pendingLockChanges = ref<Set<string>>(new Set());
 // Watch for changes to editState prop and update local state
 watch(
     () => props.editState?.json,
-    (newJson) => {
+    (newJson: string | undefined) => {
         if (newJson !== undefined) {
             localEditJson.value = newJson;
         }
@@ -714,10 +716,10 @@ const getGridSpanClass = (key: string, value: unknown, type: string): string => 
         return contentLength <= 30
             ? "col-span-3"
             : contentLength <= 50
-            ? "col-span-4"
-            : contentLength <= 70
-            ? "col-span-6"
-            : "col-span-12";
+              ? "col-span-4"
+              : contentLength <= 70
+                ? "col-span-6"
+                : "col-span-12";
     } else {
         // Strings - be more aggressive with space
         if (contentLength <= 15) return "col-span-2";
@@ -997,7 +999,7 @@ const getUnifiedGridSpanClass = (field: UnifiedField): string => {
     if (field.category === "special") {
         return getSpecialFieldSpanClass(
             field.value,
-            getAllFieldsComputed.value.filter((f) => f.category === "status").length,
+            getAllFieldsComputed.value.filter((f: UnifiedField) => f.category === "status").length,
         );
     } else if (field.category === "status") {
         return getStatusFieldSpanClass(field.value);
